@@ -1,0 +1,21 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "14.19.0",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.9.1"
+    },
+    "version": "1.17.2",
+    "libraryName": "appraisal-portal",
+    "libraryId": "7e9c7783-079a-4c38-803e-fcf303a8455b",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "appraisal-portal",
+    "solutionShortDescription": "appraisal-portal description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "componentType": "webpart"
+  }
+}

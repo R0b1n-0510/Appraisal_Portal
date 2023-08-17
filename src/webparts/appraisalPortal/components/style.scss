@@ -1,0 +1,250 @@
+@import "icon_css.scss";
+
+// Aside bar
+.aside {
+    border: none;
+    font-size: 14px;
+
+    p,
+    h5 {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    h3 {
+        margin-bottom: 5px;
+        font-size: 18px;
+    }
+
+    .card-body {
+        padding: 5px;
+
+        .list-group {
+            .list-group-item {
+                padding: 0px;
+                line-height: 30px;
+            }
+        }
+    }
+
+    .useradmin {
+        width: 140px;
+        height: 140px;
+        background: var(--skyblue);
+        text-align: center;
+        color: #fff;
+        padding: 10px 0px;
+        margin: 0 auto;
+
+    }
+}
+
+// right side bar
+
+.application-status {
+    text-align: center;
+    width: 100%;
+
+    h1 {
+        background: #fff;
+        border-radius: 6px 0px;
+        font-size: 30px;
+        padding: 10px 0px;
+        color: var(--skyblue);
+    }
+}
+
+.user {
+    height: 57px;
+    width: 50px;
+    margin-top: 26px;
+}
+
+
+.mycard {
+    padding: 18px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+    margin: 11px auto;
+    background-color: #f0f0f0;
+    display: inline-block;
+    margin-right: 2px;
+    height: 200px;
+    overflow: hidden;
+
+
+}
+
+.statuscol {
+    // background-color: var(--green);
+    background-color: rgb(76, 235, 76);
+    margin: 5px 0;
+    padding: 10px 10px;
+    display: inline-block;
+    color: #fff !important;
+    border-radius: 4px;
+}
+
+.statuscol.Pending {
+    background-color: #dfe432;
+}
+
+.statuscol.Completed {
+    background-color: rgb(0, 199, 0);
+}
+
+.i_a_8474018e {
+    border: 1px solid #e5e5e5;
+    border-bottom: 0;
+    flex-basis: 0;
+    margin: 15px auto 0;
+    max-width: 1924px;
+    min-height: 0;
+}
+
+.key-response {
+    padding: 4px 5px;
+    text-align: justify;
+    color: var(--skyblue);
+}
+
+.names {
+    text-align: justify;
+    padding: 2px 8px;
+}
+
+
+.cardComp {
+    width: 100%
+}
+
+.mycardboxes {
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin: 10px auto;
+    background-color: #f0f0f0;
+    display: inline-table;
+    margin-right: 10px;
+    height: 200px;
+    overflow: hidden;
+}
+
+.mycardboxes1 {
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin: 10px auto;
+    // background-color: white
+    display: inline-block;
+    margin-right: 10px;
+    height: 330px;
+    overflow: hidden;
+
+}
+
+.footer {
+    border: 1px dashed #ccc;
+}
+
+.card-text {
+    display: flex;
+    gap: 5px;
+}
+
+.list-group-item {
+    border: 0px;
+}
+
+.card-text {
+    display: flex;
+    gap: 5px
+}
+
+.break_word {
+    word-break: break-word;
+}
+
+.table {
+    margin: auto;
+}
+
+.btn {
+    padding: 5px 10px;
+    border-radius: inherit;
+
+    .btn-primary {
+        background-color: var(--skyblue);
+        border: none;
+    }
+
+    .btn-default {
+        border: 1px solid var(--skyblue);
+
+        background-color: var(--white);
+    }
+}
+
+.Appraisal-Info {
+    label {
+        width: 100%;
+        float: left;
+    }
+
+    input {
+        width: 100%;
+        height: 35px;
+    }
+
+    textarea {
+        width: 100%;
+        float: left;
+        height: 100px;
+    }
+
+}
+
+.edit-data {
+    input {
+        width: 78%;
+        height: 30px;
+    }
+
+    label {
+        height: 27px;
+    }
+}
+
+.add-datapanel {
+    input {
+        width: 50%;
+        height: 30px;
+    }
+
+    label {
+        height: 27px;
+    }
+}
+
+.user-DP {
+    border-radius: 25rem;
+    height: 140px;
+    width: 140px;
+    object-fit: cover;
+    margin-bottom: 5px;
+}
+
+.svg__iconbox.svg__icon--edit-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.svg__iconbox.svg__icon--trash-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.rowss{
+    text-align: left;
+}

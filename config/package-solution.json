@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "appraisal-portal-client-side-solution",
+    "id": "7e9c7783-079a-4c38-803e-fcf303a8455b",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.17.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "appraisal-portal description"
+      },
+      "longDescription": {
+        "default": "appraisal-portal description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "appraisal-portal Feature",
+        "description": "The feature that activates elements of the appraisal-portal solution.",
+        "id": "b9e2f673-1bcc-49f0-98ca-3d020edb0218",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/appraisal-portal.sppkg"
+  }
+}
