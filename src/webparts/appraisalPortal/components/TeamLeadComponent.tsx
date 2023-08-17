@@ -29,7 +29,7 @@ const TeamLeadComponent = (props: any) => {
   const [resetData, setResetData] = useState(false);
   const [sendData, setSendData] = useState(false);
   const [cardsData, setCardsData] = useState<any>([]);
-
+  const [leadComment, setLeadComment] = useState("")
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -41,10 +41,13 @@ const TeamLeadComponent = (props: any) => {
   const sendDataClose = () => setSendData(false);
 
   const handleTeamMemberClick = (teamMember: any) => {
-    let carddata: any = JSON.parse(teamMember?.CardStatus);
-    setCardsApi(carddata)
-    setSelectedTeamMember(teamMember);
-    setShowAppraisalGoals(false);
+    if (teamMember.Id !== props.current[0].Id) {
+      let carddata: any = JSON.parse(teamMember?.CardStatus);
+      setCardsApi(carddata)
+      setSelectedTeamMember(teamMember);
+      setShowAppraisalGoals(false);
+      setLeadComment(teamMember.LeadComment || "");
+    }
   }
 
   const handleShowAppraisalGoals = () => {
@@ -373,6 +376,42 @@ const TeamLeadComponent = (props: any) => {
     }
   }, [toggle, selectedTeamMember]);
 
+  const commentHandler = () => {
+    {
+      let web = new Web(props.baseUrl);
+      web.lists
+        .getById("BDE43545-CF44-4959-A191-EA3FF319A6AB").items.getById(selectedTeamMember.Id).update({
+          LeadComment: 
+          leadComment,
+        })
+        .then(() => {
+          console.log("Lead's comment updated on the backend.");
+          props.fetchAPIData()
+        })
+        .catch((e) => {
+          console.error("Error updating Lead's comment:", e);
+        });
+    }
+  }
+
+  const deleteLeadCommentHandler = () => {
+    if (selectedTeamMember) {
+      let web = new Web(props.baseUrl);
+      web.lists
+        .getById("BDE43545-CF44-4959-A191-EA3FF319A6AB").items.getById(selectedTeamMember.Id).update({
+          LeadComment: null,
+        })
+        .then(() => {
+          console.log("Lead's comment deleted on the backend.");
+          setLeadComment(""); // Reset the leadComment state to empty string
+          props.fetchAPIData();
+        })
+        .catch((e) => {
+          console.error("Error deleting Lead's comment:", e);
+        });
+    }
+  }
+
   return (
     <>
       <section className='bg-body-secondary p-3'>
@@ -425,25 +464,12 @@ const TeamLeadComponent = (props: any) => {
                         <ul className='list-group' key={member.TaskUser}>
                           <li className="list-group-item" onClick={() => handleTeamMemberClick(member)}>
                             {member.TeamLead === "Team Lead" ? (
-                              <span
-                                className={
-                                  member.Id == selectedTeamMember?.Id
-                                    ? "fw-bold"
-                                    : ""
-                                }
-                              >
+                              <span className={member.Id == selectedTeamMember?.Id ? "fw-bold" : ""}>
                                 {member.TaskUser} <FaUserTie />
                               </span>
-                            ) : (
-                              <div
-                                className={
-                                  member.Id == selectedTeamMember?.Id
-                                    ? "fw-bold"
-                                    : ""
-                                }
-                              >
-                                {member.TaskUser}{" "}
-                              </div>
+                            ) : (<div className={member.Id == selectedTeamMember?.Id ? "fw-bold" : ""}>
+                              {member.TaskUser}{" "}
+                            </div>
                             )}
                           </li>
                         </ul>
@@ -527,7 +553,7 @@ const TeamLeadComponent = (props: any) => {
                         <GlobalCommonTable data={data} columns={columns} />
                       </div>
 
-                      <div className="text-end mb-1">
+                      <div className="text-end mb-4">
                         <button className="me-1 btn btn-primary" onClick={handleShowAppraisalGoals}>Go Back</button>
                         <button className={`me-1 btn btn-primary ${isResetButtonActive ? '' : 'disabled'}`} onClick={resetShow}>Reset</button>
                         {/* <button className="me-1 btn btn-primary" onClick={toggleHandler}>Send</button> */}
@@ -537,7 +563,12 @@ const TeamLeadComponent = (props: any) => {
                             <FaPlus />Add
                           </span>
                         </a>
-
+                      </div>
+                      <div>
+                        {/* <textarea className='form-control w-100' value={selectedTeamMember?.LeadComment?.replace(/<[^>]*>/g, ' ')} onChange={(e) => setLeadComment(e.target.value)} /> */}
+                        <textarea className='form-control w-100 mb-3' placeholder="Enter the comment/comments for employee" value={leadComment.replace(/<[^>]*>/g, ' ')} onChange={(e) => setLeadComment(e.target.value)} />
+                        <Button className="me-1" onClick={commentHandler}>Send Comment</Button>
+                        <Button onClick={deleteLeadCommentHandler}>Delete Comment</Button>
                       </div>
                     </div>
                   )}
