@@ -258,8 +258,59 @@ const TeamLeadComponent = (props: any) => {
   };
 
   // function to ADD data
+  const calculateTotalWeightage = (data:any) => {
+    return data.reduce((total:any, item:any) => total + parseFloat(item.Weightage), 0);
+  };  
+
+  // const addFunction = async () => {
+  //   if (!goals || !weightage) return;
+
+  //   const totalWeightage = calculateTotalWeightage(data);
+  //   const newWeightage = parseFloat(weightage);
+  
+  //   if (totalWeightage + newWeightage > 100) {
+  //     alert("Total weightage cannot exceed 100");
+  //     return;
+  //   }
+
+  //   const objData = {
+  //     Goals: goals,
+  //     Weightage: weightage,
+  //     SelfRate: 0,
+  //     Comment: "",
+  //     TLRate: 0,
+  //     TLComment: ""
+  //   }
+  //   let addData = data;
+  //   addData.push(objData)
+  //   const AddedData = JSON.stringify(addData); // Convert newData back to JSON string
+  //   let web = new Web(props.baseUrl);
+  //   try {
+  //     await web.lists
+  //       .getById("BDE43545-CF44-4959-A191-EA3FF319A6AB").items.getById(selectedTeamMember.Id).update({
+  //         WeightageTable: AddedData, // Use the JSON string for update
+  //       });
+  //     props.fetchAPIData()
+  //     setOpenPopup(false);
+  //     setGoals("");
+  //     setWeightage("");
+  //   } catch (error) {
+  //     console.error(error);
+  //     return error;
+  //   }
+  //   setTableData((data) => [...data]); // Update the state with the new data
+  // };
   const addFunction = async () => {
     if (!goals || !weightage) return;
+  
+    const totalWeightage = calculateTotalWeightage(data);
+    const newWeightage = parseFloat(weightage);
+  
+    if (totalWeightage + newWeightage > 100) {
+      alert("Total weightage cannot exceed 100");
+      return;
+    }
+  
     const objData = {
       Goals: goals,
       Weightage: weightage,
@@ -267,17 +318,16 @@ const TeamLeadComponent = (props: any) => {
       Comment: "",
       TLRate: 0,
       TLComment: ""
-    }
-    let addData = data;
-    addData.push(objData)
-    const AddedData = JSON.stringify(addData); // Convert newData back to JSON string
+    };
+    let addData = data.concat(objData); // Use concat to create a new array
+    const AddedData = JSON.stringify(addData);
     let web = new Web(props.baseUrl);
     try {
       await web.lists
         .getById("BDE43545-CF44-4959-A191-EA3FF319A6AB").items.getById(selectedTeamMember.Id).update({
-          WeightageTable: AddedData, // Use the JSON string for update
+          WeightageTable: AddedData,
         });
-      props.fetchAPIData()
+      props.fetchAPIData();
       setOpenPopup(false);
       setGoals("");
       setWeightage("");
@@ -285,8 +335,9 @@ const TeamLeadComponent = (props: any) => {
       console.error(error);
       return error;
     }
-    setTableData((data) => [...data]); // Update the state with the new data
+    setTableData(addData);
   };
+  
 
   useEffect(() => {
     if (selectedTeamMember) {
