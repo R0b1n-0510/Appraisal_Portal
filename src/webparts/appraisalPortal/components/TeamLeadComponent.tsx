@@ -649,11 +649,11 @@ const TeamLeadComponent = (props: any) => {
             <label className='form-label mb-0 mt-2 w-100'>Weightage: </label>
             <input className='form-control' type="number" defaultValue={dataUpdate?.Weightage} onChange={(e: any) => setDataUpdate({ ...dataUpdate, Weightage: e.target.value })} />
 
-            <label className='form-label mb-0 mt-2 w-100'>Employee Rating: </label>
+            {/* <label className='form-label mb-0 mt-2 w-100'>Employee Rating: </label>
             <input className='form-control' type="number" defaultValue={dataUpdate?.SelfRate} onChange={(e: any) => setDataUpdate({ ...dataUpdate, SelfRate: e.target.value })} />
 
             <label className='form-label mb-0 mt-2 w-100'>Employee Comment: </label>
-            <textarea className='form-control' defaultValue={dataUpdate?.Comment} onChange={(e: any) => setDataUpdate({ ...dataUpdate, Comment: e.target.value })} />
+            <textarea className='form-control' defaultValue={dataUpdate?.Comment} onChange={(e: any) => setDataUpdate({ ...dataUpdate, Comment: e.target.value })} /> */}
 
             <label className='form-label mb-0 mt-2 w-100'>TL's Rating: </label>
             <input type="text" className='form-control' defaultValue={dataUpdate?.TLRate} onChange={(e: any) => setDataUpdate({ ...dataUpdate, TLRate: e.target.value })} />

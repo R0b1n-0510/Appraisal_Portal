@@ -154,6 +154,11 @@ const EmployeeComponent = (props: any) => {
 
     const updateDetails = async () => {
         if (!dataUpdate) return; // Ensure dataUpdate has a value
+
+        if (parseFloat(dataUpdate.SelfRate) > parseFloat(dataUpdate.Weightage)) {
+            dataUpdate.SelfRate = dataUpdate.Weightage;
+        }
+        
         data.splice(dataUpdate.index, 1, dataUpdate);
         const metaData = JSON.stringify(data); // Convert data back to JSON string
         let web = new Web(props.baseUrl);
