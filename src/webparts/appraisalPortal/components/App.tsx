@@ -51,7 +51,7 @@ const App = (props: any) => {
             { current.length > 0 && current[0].TeamLead === "Team Lead" ? (
                 <TeamLeadComponent current={current} TeamMembers={TeamMembers} baseUrl={baseUrl} fetchAPIData={fetchAPIData}/>
             ) : (
-                <EmployeeComponent current={current} TeamMembers={TeamMembers} baseUrl={baseUrl} />
+                <EmployeeComponent current={current} TeamMembers={TeamMembers} baseUrl={baseUrl} fetchAPIData={fetchAPIData}/>
             )}
             {/* <EmployeeComponent current={current} TeamMembers={TeamMembers} baseUrl={baseUrl} fetchAPIData={fetchAPIData}/>
             <TeamLeadComponent current={current} TeamMembers={TeamMembers} baseUrl={baseUrl} /> */}

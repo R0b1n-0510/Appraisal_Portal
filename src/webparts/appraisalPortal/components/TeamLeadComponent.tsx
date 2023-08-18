@@ -258,16 +258,16 @@ const TeamLeadComponent = (props: any) => {
   };
 
   // function to ADD data
-  const calculateTotalWeightage = (data:any) => {
-    return data.reduce((total:any, item:any) => total + parseFloat(item.Weightage), 0);
-  };  
+  const calculateTotalWeightage = (data: any) => {
+    return data.reduce((total: any, item: any) => total + parseFloat(item.Weightage), 0);
+  };
 
   // const addFunction = async () => {
   //   if (!goals || !weightage) return;
 
   //   const totalWeightage = calculateTotalWeightage(data);
   //   const newWeightage = parseFloat(weightage);
-  
+
   //   if (totalWeightage + newWeightage > 100) {
   //     alert("Total weightage cannot exceed 100");
   //     return;
@@ -302,15 +302,15 @@ const TeamLeadComponent = (props: any) => {
   // };
   const addFunction = async () => {
     if (!goals || !weightage) return;
-  
+
     const totalWeightage = calculateTotalWeightage(data);
     const newWeightage = parseFloat(weightage);
-  
+
     if (totalWeightage + newWeightage > 100) {
       alert("Total weightage cannot exceed 100");
       return;
     }
-  
+
     const objData = {
       Goals: goals,
       Weightage: weightage,
@@ -337,7 +337,7 @@ const TeamLeadComponent = (props: any) => {
     }
     setTableData(addData);
   };
-  
+
 
   useEffect(() => {
     if (selectedTeamMember) {
@@ -432,8 +432,8 @@ const TeamLeadComponent = (props: any) => {
       let web = new Web(props.baseUrl);
       web.lists
         .getById("BDE43545-CF44-4959-A191-EA3FF319A6AB").items.getById(selectedTeamMember.Id).update({
-          LeadComment: 
-          leadComment,
+          LeadComment:
+            leadComment,
         })
         .then(() => {
           console.log("Lead's comment updated on the backend.");
@@ -473,19 +473,28 @@ const TeamLeadComponent = (props: any) => {
               <div className='card aside p-3 shadow'>
                 <div className='text-center'>
                   <div>
-                    {selectedTeamMember?.ItemImage == null ?
-                      (
+                    {/* {selectedTeamMember?.ItemImage == null ? (<div className="rounded-circle useradmin"><FaUser className="user" /></div>) : (<img className="user-DP" src={selectedTeamMember?.ItemImage?.Url}></img>)} */}
+                    {/* {selectedTeamMember ? {selectedTeamMember?.ItemImage == null ? (<div className="rounded-circle useradmin"><FaUser className="user" /></div>) 
+                    : (<img className="user-DP" src={selectedTeamMember?.ItemImage?.Url}></img>)}
+                  :
+                  {props.current[0]?.ItemImage == null ?
+                    (<div className="rounded-circle useradmin"><FaUser className="user" /></div>) : (<img className="user-DP" src={props.current[0]?.ItemImage?.Url}></img>)}} */}
+
+                    <div>
+                      {selectedTeamMember ? (selectedTeamMember?.ItemImage == null ? (
                         <div className="rounded-circle useradmin">
                           <FaUser className="user" />
                         </div>
-                      ) : (
-                        <img
-                          className="user-DP"
-                          src={
-                            selectedTeamMember?.ItemImage?.Url
-                          }
-                        ></img>
+                      ) : (<img className="user-DP" src={selectedTeamMember?.ItemImage?.Url} alt="User DP" />)
+                      ) : (props.current[0]?.ItemImage == null ? (
+                        <div className="rounded-circle useradmin">
+                          <FaUser className="user" />
+                        </div>
+                      ) : (<img className="user-DP" src={props.current[0]?.ItemImage?.Url} alt="User DP" />
+                      )
                       )}
+                    </div>
+
                   </div>
                   <h5 className="card-title mt-2">{selectedTeamMember !== null ? (selectedTeamMember.TeamLead === "Team Lead" ? <>{selectedTeamMember.TaskUser} <FaUserTie /></> : (selectedTeamMember.TaskUser)) : (props.current.length > 0 ? props.current[0].TaskUser : '')}</h5>
                   <p className='mt-1'><strong>{props.current.length > 0 ? props.current[0].technicalGroup : ''}</strong></p>
@@ -501,12 +510,9 @@ const TeamLeadComponent = (props: any) => {
                       </p>
                       <p className="card-text">
                         <span><FaEnvelope /></span>
-                        <span className='break_word'>{selectedTeamMember !== null ? selectedTeamMember?.Email : props.current.length > 0 ? props.current[0].Email : ''}</span>
+                        <span className='break_word pe-4'>{selectedTeamMember !== null ? selectedTeamMember?.Email : props.current.length > 0 ? props.current[0].Email : ''}</span>
                       </p>
-
                     </div>
-
-
                   </div>
                   <div className="row mt-4">
                     <h3 className="card-title">Team Members</h3>
@@ -598,8 +604,12 @@ const TeamLeadComponent = (props: any) => {
                       </section>
                     </div>
                   ) : (
-                    <div>
-                      {/* Render the content for the selected team member */}
+                    <div className="text-end">
+                      <a href="#" onClick={() => setOpenPopup(true)}>
+                        <span className="iconss">
+                          <FaPlus />Add
+                        </span>
+                      </a>
                       <div>
                         <GlobalCommonTable data={data} columns={columns} />
                       </div>
@@ -609,11 +619,6 @@ const TeamLeadComponent = (props: any) => {
                         <button className={`me-1 btn btn-primary ${isResetButtonActive ? '' : 'disabled'}`} onClick={resetShow}>Reset</button>
                         {/* <button className="me-1 btn btn-primary" onClick={toggleHandler}>Send</button> */}
                         <button className={`me-1 btn btn-primary ${isSendButtonActive ? '' : 'disabled'}`} onClick={sendDataShow}>Send</button>
-                        <a href="#" onClick={() => setOpenPopup(true)}>
-                          <span className="iconss">
-                            <FaPlus />Add
-                          </span>
-                        </a>
                       </div>
                       <div>
                         {/* <textarea className='form-control w-100' value={selectedTeamMember?.LeadComment?.replace(/<[^>]*>/g, ' ')} onChange={(e) => setLeadComment(e.target.value)} /> */}
@@ -623,7 +628,6 @@ const TeamLeadComponent = (props: any) => {
                       </div>
                     </div>
                   )}
-
                 </div>
               </div>
             </div>
@@ -681,7 +685,9 @@ const TeamLeadComponent = (props: any) => {
             <label>Enter the weightage: </label>
             <input type="text" value={weightage} onChange={(e: any) => setWeightage(e.target.value)} />
             <br></br>
-            <DefaultButton className="btn btn-primary mt-3 p-3 shadow" onClick={addFunction}>Add Item</DefaultButton>
+            {/* <DefaultButton className="btn btn-primary mt-3 p-3 shadow" onClick={addFunction}>Add Item</DefaultButton> */}
+            <DefaultButton className="btn btn-primary mt-3 p-3 shadow" 
+            onClick={() => {if (parseFloat(weightage) > 0) {addFunction()} else {alert("Weightage must be greater than 0")}}}>Add Item</DefaultButton>
           </div>
         </Panel>
 

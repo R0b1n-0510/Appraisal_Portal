@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useState, useEffect } from "react";
-import { FaPhone, FaEnvelope, FaUser, FaStar } from 'react-icons/fa';
+import { FaPhone, FaEnvelope, FaUser, FaUserTie } from 'react-icons/fa';
 import { Web } from "sp-pnp-js";
 import { DefaultButton } from '@fluentui/react/lib/Button';
 import GlobalCommonTable from './GlobalCommonTable';
@@ -182,9 +182,9 @@ const EmployeeComponent = (props: any) => {
                         <div className='col-md-3'>
                             <div className='card aside p-3 shadow'>
                                 <div className='text-center'>
-                                    <div className='rounded-circle useradmin'>
-                                        {/* {current.length > 0 ? current[0].Item_x0020_Cover !== null ? current[0].Item_x0020_Cover : current[0].Suffix : ''} */}
-                                        <FaUser className='user' />
+                                    <div>
+                                        {props.current[0]?.ItemImage == null ?
+                                            (<div className="rounded-circle useradmin"><FaUser className="user" /></div>) : (<img className="user-DP" src={props.current[0]?.ItemImage?.Url}></img>)}
                                     </div>
 
                                     {/* <h5 className="card-title">{props.current.length > 0 ? (props.current[0].TeamLead === "Team Lead" ? <>{props.current[0].TaskUser} <FaStar /></> : (props.current[0].TaskUser)) : ''}</h5> */}
@@ -201,7 +201,7 @@ const EmployeeComponent = (props: any) => {
                                         </p>
                                         <p className="card-text ms-3 mt-2 ">
                                             <span><FaEnvelope /></span>
-                                            <span className='break_word'>{props.current.length > 0 ? props.current[0].Email : ''}</span>
+                                            <span className='break_word pe-4'>{props.current.length > 0 ? props.current[0].Email : ''}</span>
                                         </p>
                                     </div>
                                     <div className='row mt-4'>
@@ -212,7 +212,7 @@ const EmployeeComponent = (props: any) => {
                                                     <li className="list-group-item">
                                                         {/* {team.TeamLead === "Team Lead" ? team.TaskUser + "( TL)" : team.TaskUser} */}
                                                         {/* {team.TaskUser} */}
-                                                        {team.TeamLead === "Team Lead" ? (<>{team.TaskUser} <FaStar /></>) : (team.TaskUser)}
+                                                        {team.TeamLead === "Team Lead" ? (<>{team.TaskUser} <FaUserTie /></>) : (team.TaskUser)}
                                                     </li>
                                                 </ul>
                                             ))}
@@ -266,9 +266,12 @@ const EmployeeComponent = (props: any) => {
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <div className='mycardboxes'>
-                                                            <p className='py-md-5'>Leads comment and rating</p>
-                                                        </div>
+                                                        {props.current[0]?.LeadComment ? (<div className='form-control w-100 mb-3 p-5'>{props.current[0]?.LeadComment.replace(/<[^>]*>/g, ' ')}</div>)
+                                                            :
+                                                            <div className='mycardboxes'>
+                                                                <p className='py-md-5'>Leads comment and rating</p>
+                                                            </div>
+                                                        }
                                                     </div>
 
                                                 </div>
