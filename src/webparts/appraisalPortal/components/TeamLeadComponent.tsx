@@ -2,8 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { FaPhone, FaEnvelope, FaUser, FaUserTie, FaPlus } from 'react-icons/fa';
 import { Web } from "sp-pnp-js";
 import "./style.scss"
-// import Cards from './Cards';
-// import AppraisalGoals from './AppraisalGoals';
 import GlobalCommonTable from './GlobalCommonTable';
 import { ColumnDef } from "@tanstack/react-table";
 import { DefaultButton } from '@fluentui/react/lib/Button';
@@ -55,19 +53,6 @@ const TeamLeadComponent = (props: any) => {
     setSelectedTeamMember(null);
     setShowAppraisalGoals(true);
   }
-
-  // if (cardsApi != null) {
-  //   selectedMember = cardsApi
-  // }
-  // else {
-  //   if (props.current != undefined && props.current[0] != undefined) {
-  //     try {
-  //       selectedMember = JSON.parse(props.current[0].CardStatus);
-
-  //     } catch (e) { console.log(e) }
-
-  //   }
-  // }
   const selectedMember = useMemo(() => {
     if (cardsApi != null) {
       return cardsApi;
@@ -129,16 +114,15 @@ const TeamLeadComponent = (props: any) => {
     }
   }, [selectedMember]);
 
-
   useEffect(() => {
     if (selectedTeamMember !== null && selectedTeamMember !== "undefined") {
-      setTableData(JSON.parse(selectedTeamMember?.WeightageTable))
+      setTableData(JSON.parse(selectedTeamMember?.WeightageTable));
+    } else if (props.current && props.current.length > 0 && props.current[0].WeightageTable !== null && props.current[0].WeightageTable !== "undefined") {
+      setTableData(JSON.parse(props.current[0]?.WeightageTable));
     } else {
       setTableData([]);
     }
-  }, [selectedTeamMember])
-
-  console.log("helloo")
+  }, [selectedTeamMember, props.current]);
 
   const handleEdit = (row: any,) => {
     // Handle the edit action here using the row data
@@ -166,33 +150,33 @@ const TeamLeadComponent = (props: any) => {
     () => [
       {
         accessorKey: 'Goals',
-        header: '',
-        placeholder: 'Goals'
+        header: 'Goals',
+        // placeholder: ''
       },
       {
         accessorKey: 'Weightage',
-        header: '',
-        placeholder: 'Weightage'
+        header: 'Weightage',
+        // placeholder: ''
       },
       {
         accessorKey: 'SelfRate',
-        header: '',
-        placeholder: 'Employee Ratings'
+        header: 'Employee Ratings',
+        // placeholder: ''
       },
       {
         accessorKey: 'Comment',
-        header: '',
-        placeholder: 'Employee Comment'
+        header: 'Employee Comment',
+        // placeholder: ''
       },
       {
         accessorKey: 'TLRate',
-        header: '',
-        placeholder: 'TL Rating'
+        header: 'TL Rating',
+        // placeholder: ''
       },
       {
         accessorKey: 'TLComment',
-        header: '',
-        placeholder: 'TL Comment'
+        header: 'TL Comment',
+        // placeholder: ''
       },
       {
         accessorKey: '',
@@ -240,6 +224,11 @@ const TeamLeadComponent = (props: any) => {
   // function to update existing table with updated data
   const updateDetails = async () => {
     if (!dataUpdate) return; // Ensure dataUpdate has a value
+
+    if (parseFloat(dataUpdate.TLRate) > parseFloat(dataUpdate.Weightage)) {
+      dataUpdate.TLRate = dataUpdate.Weightage;
+    }
+
     data.splice(dataUpdate.index, 1, dataUpdate);
     const metaData = JSON.stringify(data); // Convert data back to JSON string
     let web = new Web(props.baseUrl);
@@ -262,44 +251,6 @@ const TeamLeadComponent = (props: any) => {
     return data.reduce((total: any, item: any) => total + parseFloat(item.Weightage), 0);
   };
 
-  // const addFunction = async () => {
-  //   if (!goals || !weightage) return;
-
-  //   const totalWeightage = calculateTotalWeightage(data);
-  //   const newWeightage = parseFloat(weightage);
-
-  //   if (totalWeightage + newWeightage > 100) {
-  //     alert("Total weightage cannot exceed 100");
-  //     return;
-  //   }
-
-  //   const objData = {
-  //     Goals: goals,
-  //     Weightage: weightage,
-  //     SelfRate: 0,
-  //     Comment: "",
-  //     TLRate: 0,
-  //     TLComment: ""
-  //   }
-  //   let addData = data;
-  //   addData.push(objData)
-  //   const AddedData = JSON.stringify(addData); // Convert newData back to JSON string
-  //   let web = new Web(props.baseUrl);
-  //   try {
-  //     await web.lists
-  //       .getById("BDE43545-CF44-4959-A191-EA3FF319A6AB").items.getById(selectedTeamMember.Id).update({
-  //         WeightageTable: AddedData, // Use the JSON string for update
-  //       });
-  //     props.fetchAPIData()
-  //     setOpenPopup(false);
-  //     setGoals("");
-  //     setWeightage("");
-  //   } catch (error) {
-  //     console.error(error);
-  //     return error;
-  //   }
-  //   setTableData((data) => [...data]); // Update the state with the new data
-  // };
   const addFunction = async () => {
     if (!goals || !weightage) return;
 
@@ -556,7 +507,7 @@ const TeamLeadComponent = (props: any) => {
                     <div>
                       {cardsData?.map((mycard: any) => (
                         <div key={mycard.id} className="mycard">
-                          <p>Card {mycard.id}</p>
+                          {/* <p>Card {mycard.id}</p> */}
                           <p className={`statuscol ${mycard.status} shadow`}>Status: {mycard.status}</p>
                           <p>{mycard.statement}</p>
                           {mycard.remainingDays !== undefined && (
@@ -570,24 +521,32 @@ const TeamLeadComponent = (props: any) => {
                   {showAppraisalGoals ? (
                     <div>
                       <section>
-                        <div className='text-md-start py-4'>
+                        <div className='key-response'>
                           <h4>Key Responsibilities</h4>
                         </div>
                         <div className='container'>
                           <div className="row">
                             <div>
                               <div className='mycardboxes1'>
-                                <p className='py-md-5'>Keep Calm!
-                                  <br></br>Goals being set.
-                                </p>
+                                {props.current[0]?.WeightageStatus ? (
+                                  <GlobalCommonTable data={data} columns={columns} />
+                                ) : (
+                                  <p className='py-md-5'>
+                                    Keep Calm!
+                                    <br />
+                                    Goals being set.
+                                  </p>
+                                )}
                               </div>
                             </div>
                             <div>
-                              <div className='mycardboxes'>
-                                <p className='py-md-5'>Leads comment and rating</p>
-                              </div>
+                              {(props.current[0]?.LeadComment || props.current[0]?.LeadComment === "") ? (<div className='form-control w-100 mb-3 p-5'>{props.current[0]?.LeadComment.replace(/<[^>]*>/g, ' ')}</div>)
+                                :
+                                <div className='mycardboxes'>
+                                  <p className='py-md-5'>Leads comment and rating</p>
+                                </div>
+                              }
                             </div>
-
                           </div>
                         </div>
                         {/* -------footer part managers rating---------- */}
@@ -613,6 +572,7 @@ const TeamLeadComponent = (props: any) => {
                       <div>
                         <GlobalCommonTable data={data} columns={columns} />
                       </div>
+
 
                       <div className="text-end mb-4">
                         <button className="me-1 btn btn-primary" onClick={handleShowAppraisalGoals}>Go Back</button>
@@ -686,8 +646,8 @@ const TeamLeadComponent = (props: any) => {
             <input type="text" value={weightage} onChange={(e: any) => setWeightage(e.target.value)} />
             <br></br>
             {/* <DefaultButton className="btn btn-primary mt-3 p-3 shadow" onClick={addFunction}>Add Item</DefaultButton> */}
-            <DefaultButton className="btn btn-primary mt-3 p-3 shadow" 
-            onClick={() => {if (parseFloat(weightage) > 0) {addFunction()} else {alert("Weightage must be greater than 0")}}}>Add Item</DefaultButton>
+            <DefaultButton className="btn btn-primary mt-3 p-3 shadow"
+              onClick={() => { if (parseFloat(weightage) > 0) { addFunction() } else { alert("Weightage must be greater than 0") } }}>Add Item</DefaultButton>
           </div>
         </Panel>
 
