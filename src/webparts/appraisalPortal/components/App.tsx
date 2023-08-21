@@ -40,7 +40,6 @@ const App = (props: any) => {
         TeamMember = DataArray.filter((elem: any) => elem?.technicalGroup === CurrentUser[0]?.technicalGroup);
         setTeamMembers(TeamMember)
         console.log(DataArray)
-        console.log("fetchApi Called!!!")
     }
 
     useEffect(() => { fetchAPIData() }, [])

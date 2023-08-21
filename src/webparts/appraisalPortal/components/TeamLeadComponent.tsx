@@ -122,7 +122,22 @@ const TeamLeadComponent = (props: any) => {
     } else {
       setTableData([]);
     }
-  }, [selectedTeamMember, props.current]);
+  }, [selectedTeamMember?.WeightageTable, props.current[0]?.WeightageTable]);
+
+  // useEffect(() => {
+  //   if (selectedTeamMember !== null && selectedTeamMember !== "undefined") {
+  //     setTableData((prevTableData) => {
+  //       return JSON.parse(selectedTeamMember?.WeightageTable || prevTableData);
+  //     });
+  //   } else if (props.current && props.current.length > 0 && props.current[0].WeightageTable !== null && props.current[0].WeightageTable !== "undefined") {
+  //     setTableData((prevTableData) => {
+  //       return JSON.parse(props.current[0]?.WeightageTable || prevTableData);
+  //     });
+  //   } else {
+  //     setTableData([]);
+  //   }
+  // }, [selectedTeamMember?.WeightageTable, props.current[0]?.WeightageTable]);  
+
 
   const handleEdit = (row: any,) => {
     // Handle the edit action here using the row data
@@ -150,33 +165,43 @@ const TeamLeadComponent = (props: any) => {
     () => [
       {
         accessorKey: 'Goals',
-        header: 'Goals',
-        // placeholder: ''
+        header: '',
+        placeholder: 'Goals',
       },
       {
         accessorKey: 'Weightage',
-        header: 'Weightage',
-        // placeholder: ''
+        header: '',
+        placeholder: 'Weightage',
       },
       {
         accessorKey: 'SelfRate',
-        header: 'Employee Ratings',
-        // placeholder: ''
+        header: '',
+        placeholder: 'Employee Ratings', 
       },
       {
         accessorKey: 'Comment',
-        header: 'Employee Comment',
-        // placeholder: ''
+        header: '',
+        placeholder: 'Employee Comment',
       },
       {
         accessorKey: 'TLRate',
-        header: 'TL Rating',
-        // placeholder: ''
+        header: '',
+        placeholder: 'TL Rating',
       },
       {
         accessorKey: 'TLComment',
-        header: 'TL Comment',
-        // placeholder: ''
+        header: '',
+        placeholder: 'TL Comment',
+      },
+      {
+        accessorKey: 'ManagerRating',
+        header: '',
+        placeholder: 'Manager Rating',
+      },
+      {
+        accessorKey: 'ManagerComment',
+        header: '',
+        placeholder: 'Manager Comment',
       },
       {
         accessorKey: '',
@@ -461,7 +486,7 @@ const TeamLeadComponent = (props: any) => {
                       </p>
                       <p className="card-text">
                         <span><FaEnvelope /></span>
-                        <span className='break_word pe-4'>{selectedTeamMember !== null ? selectedTeamMember?.Email : props.current.length > 0 ? props.current[0].Email : ''}</span>
+                        <span className='break_word'>{selectedTeamMember !== null ? selectedTeamMember?.Email : props.current.length > 0 ? props.current[0].Email : ''}</span>
                       </p>
                     </div>
                   </div>
@@ -527,11 +552,11 @@ const TeamLeadComponent = (props: any) => {
                         <div className='container'>
                           <div className="row">
                             <div>
-                              <div className='mycardboxes1'>
+                              <div>
                                 {props.current[0]?.WeightageStatus ? (
-                                  <GlobalCommonTable data={data} columns={columns} />
+                                  <GlobalCommonTable data={data} columns={columns}/>
                                 ) : (
-                                  <p className='py-md-5'>
+                                  <p className='mycardboxes1 py-md-5'>
                                     Keep Calm!
                                     <br />
                                     Goals being set.
@@ -539,7 +564,7 @@ const TeamLeadComponent = (props: any) => {
                                 )}
                               </div>
                             </div>
-                            <div>
+                            <div className='pt-3'>
                               {(props.current[0]?.LeadComment || props.current[0]?.LeadComment === "") ? (<div className='form-control w-100 mb-3 p-5'>{props.current[0]?.LeadComment.replace(/<[^>]*>/g, ' ')}</div>)
                                 :
                                 <div className='mycardboxes'>
@@ -570,15 +595,15 @@ const TeamLeadComponent = (props: any) => {
                         </span>
                       </a>
                       <div>
-                        <GlobalCommonTable data={data} columns={columns} />
+                        <GlobalCommonTable data={data} columns={columns}/>
                       </div>
 
 
                       <div className="text-end mb-4">
-                        <button className="me-1 btn btn-primary" onClick={handleShowAppraisalGoals}>Go Back</button>
-                        <button className={`me-1 btn btn-primary ${isResetButtonActive ? '' : 'disabled'}`} onClick={resetShow}>Reset</button>
+                        <button className="me-1 mt-2 btn btn-primary" onClick={handleShowAppraisalGoals}>Go Back</button>
+                        <button className={`me-1 mt-2 btn btn-primary ${isResetButtonActive ? '' : 'disabled'}`} onClick={resetShow}>Reset</button>
                         {/* <button className="me-1 btn btn-primary" onClick={toggleHandler}>Send</button> */}
-                        <button className={`me-1 btn btn-primary ${isSendButtonActive ? '' : 'disabled'}`} onClick={sendDataShow}>Send</button>
+                        <button className={`me-1 mt-2 btn btn-primary ${isSendButtonActive ? '' : 'disabled'}`} onClick={sendDataShow}>Send</button>
                       </div>
                       <div>
                         {/* <textarea className='form-control w-100' value={selectedTeamMember?.LeadComment?.replace(/<[^>]*>/g, ' ')} onChange={(e) => setLeadComment(e.target.value)} /> */}

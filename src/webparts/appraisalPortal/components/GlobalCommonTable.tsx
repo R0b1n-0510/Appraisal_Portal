@@ -110,6 +110,7 @@ const GlobalCommonTable = (props: any) => {
         debugTable: true,
         debugHeaders: true,
         debugColumns: false,
+        filterFns: undefined
     })
 
     const downloadPdf = () => {
@@ -141,7 +142,7 @@ const GlobalCommonTable = (props: any) => {
                     <DebouncedInput
                         value={globalFilter ?? ''}
                         onChange={value => setGlobalFilter(String(value))}
-                        className="p-2 font-lg shadow border border-block"
+                        className="p-2 font-lg border border-block"
                         placeholder="Search all columns..."
                     />
                 </div>
@@ -152,7 +153,7 @@ const GlobalCommonTable = (props: any) => {
                     </a>
                 </div>
             </div>
-            <table id="my-table">
+            <table className="SortingTable table table-hover mb-0" id="my-table">
                 <thead>
                     {table?.getHeaderGroups()?.map((headerGroup) => (
                         <tr key={headerGroup?.id}>

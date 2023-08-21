@@ -130,6 +130,16 @@ const EmployeeComponent = (props: any) => {
                 placeholder: 'TL Comment'
             },
             {
+                accessorKey: 'ManagerRating',
+                header: '',
+                placeholder: 'Manager Rating',
+            },
+            {
+                accessorKey: 'ManagerComment',
+                header: '',
+                placeholder: 'Manager Comment',
+            },
+            {
                 accessorKey: '',
                 header: '',
                 id: "edit",
@@ -158,7 +168,7 @@ const EmployeeComponent = (props: any) => {
         if (parseFloat(dataUpdate.SelfRate) > parseFloat(dataUpdate.Weightage)) {
             dataUpdate.SelfRate = dataUpdate.Weightage;
         }
-        
+
         data.splice(dataUpdate.index, 1, dataUpdate);
         const metaData = JSON.stringify(data); // Convert data back to JSON string
         let web = new Web(props.baseUrl);
@@ -206,7 +216,7 @@ const EmployeeComponent = (props: any) => {
                                         </p>
                                         <p className="card-text ms-3 mt-2 ">
                                             <span><FaEnvelope /></span>
-                                            <span className='break_word pe-4'>{props.current.length > 0 ? props.current[0].Email : ''}</span>
+                                            <span className='break_word pe-3'>{props.current.length > 0 ? props.current[0].Email : ''}</span>
                                         </p>
                                     </div>
                                     <div className='row mt-4'>
@@ -258,11 +268,11 @@ const EmployeeComponent = (props: any) => {
                                             <div className='container'>
                                                 <div className="row">
                                                     <div>
-                                                        <div className='mycardboxes1'>
+                                                        <div>
                                                             {props.current[0]?.WeightageStatus ? (
                                                                 <GlobalCommonTable data={data} columns={columns} />
                                                             ) : (
-                                                                <p className='py-md-5'>
+                                                                <p className='mycardboxes1 py-md-5'>
                                                                     Keep Calm!
                                                                     <br />
                                                                     Goals being set.
@@ -270,7 +280,7 @@ const EmployeeComponent = (props: any) => {
                                                             )}
                                                         </div>
                                                     </div>
-                                                    <div>
+                                                    <div className='pt-3'>
                                                         {props.current[0]?.LeadComment ? (<div className='form-control w-100 mb-3 p-5'>{props.current[0]?.LeadComment.replace(/<[^>]*>/g, ' ')}</div>)
                                                             :
                                                             <div className='mycardboxes'>

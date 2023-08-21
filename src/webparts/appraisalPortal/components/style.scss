@@ -139,7 +139,7 @@
     // background-color: white
     display: inline-block;
     margin-right: 10px;
-    height: 330px;
+    height: 147px;
     overflow: hidden;
 
 }
@@ -247,4 +247,19 @@
 
 .rowss{
     text-align: left;
+}
+
+.shorticon {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    color: grey;
+}
+
+.col-md-3 {
+    width: 23%;
+}
+
+.col-md-9 {
+    width: 77%;
 }
